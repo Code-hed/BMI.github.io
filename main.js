@@ -14,7 +14,7 @@ function calculateBMI(){
 
    let weight = parseFloat(weightInput.value)
    let heightcm = parseFloat(heightInput.value)
-let height =  heightcm / 100;
+   let height =  heightcm / 100;
    if(isNaN(weight) || isNaN(height)|| weight <=0|| heightcm <=0){
     errorMsg.textContent="Please enter valid numbers";
     errorMsg.classList.remove('hidden')

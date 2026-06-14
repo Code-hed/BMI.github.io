@@ -3,38 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI</title>
+    <title>Advanced BMI Calc</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script src="main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import "tailwindcss";
         body{
-            font-family: 'Tahoma','Vazir',system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: background-color 0.2s ease;
+            background: linear-gradient(135deg,#679ce7 0%,#03377f 100%);
 
+        }
+        .fade-in {animation: fadeIn 0.3s ease-in-out;}
+        @keyframes fadeIN {
+            from{opacity: 0;transform: translateY(10px);}
+            to{opacity: 1;transform: translateY(0);}
+        }
+        .bmi-progress{
+            background: linear-gradient(to right,#3b82f6,#22c55e,#eab308,#f97316,#ef4444);
+            border-radius: 1rem;
+            height: 12px;
+            width: 100%;
+        }
+        .bmi-marker{
+            position: relative;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 10px solid #1f2937;
+            transform: translateX(-6px);
         }
     </style>
     
 </head>
-<body class="bg-linear-to-br  from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
-
-    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 md:p-8 transition-all">
-        <h1 class="text-3xl font-bold text-center text-indigo-700 mb-2">Bmi CalCulator</h1>
-        <p class="text-center text-gray-500 mb-6">Body Mass Index</p>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <!--main Card-->
+    <div class="w-full max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transition-colors duration-200">
+        <!--Header and change metric-->
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
+            <i class="fas fa-heartbeat text-indigo-500 mr-2"></i>Bmi Advanced
+          </h1>
+          <button id="unitToggle" class="px-3 py-1 rounded-full text-sm font-semibold transition bg-indigo-600 hover:bg-indigo-700 text-white shadow">
+            <i class="fas fa-exchange-alt mr-1"></i><span id="unitLabel">Metric</span>
+          </button>
+        </div>
         <div class="space-y-5">
             <!--weight-->
             <div>
-                <label for="weight" class=" block text-gray-700 font-medium mb-2" >Weight:</label>
-                <input type="number" id="weight" placeholder="For Example 56"
-                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition">
+                <label for="weight" class=" block text-sm text-gray-700 font-medium mb-1 dark:text-gray-300" ><i class="fas fa-weight-scale mr-1"></i>Weight:</label>
+                <div class="flex gap-2">
+                <input type="number" id="weight" placeholder="70" class="flex-1 px-4 py-2 rounded-xl outline-none border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-400 ">
+                <span id="weightUnit" class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-xl dark:text-white">Kg</span>
+                </div>
             </div>
             <!--height-->
             <div>
-                <label for="height" class="block text-gray-700 font-medium mb-2">Height:</label>
-                <input type="number" id="height" placeholder="For Example 160"
-                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none transition">
+                <label for="height" class=" block text-sm text-gray-700 font-medium mb-1 dark:text-gray-300" ><i class="fas fa-weight-scale mr-1"></i>Weight:</label>
+                <div class="flex gap-2">
+                <input type="number" id="height" placeholder="70" class="flex-1 px-4 py-2 rounded-xl outline-none border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-400 ">
+                <span id="heightUnit" class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-xl dark:text-white">Cm</span>
+                </div>
             </div>
-            <button id="calculation" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition duration-200 shadow-md hover:shadow-lg">Calc</button>
+            <!--Age and Gender-->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Age</label>
+                    <input type="number" id="age" placeholder="30" value="30" class="w-full px-4 py-2 rounded-xl outline-none border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Gender</label>
+                    <select id="gender" class="w-full px-4 py-2 rounded-xl outline-none border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <!--calc show-->
         <div id="resultContainer" class="mt-8 p-4 rounded-xl bg-gray-50 text-center hidden">
