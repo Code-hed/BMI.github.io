@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <script src="main.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import "tailwindcss";
         body{
@@ -81,15 +81,63 @@
                     </select>
                 </div>
             </div>
+            <button id="calcBtn" class="w-full py-3 rounded-xl font-bold transition active:scale-95 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md">
+                <i class="fas fa-calculator"></i>Calc
+            </button>
         </div>
         <!--calc show-->
-        <div id="resultContainer" class="mt-8 p-4 rounded-xl bg-gray-50 text-center hidden">
-            <p class="text-gray-600 mb-1">Result:</p>
-            <p id="bmiValue" class="text-4xl font-extrabold text-indigo-800">--</p>
-            <p id="bmiStatus" class="text-md mt-2 font-medium"></p>
+        <div id="resultContainer" class="mt-8 p-4 rounded-xl bg-gray-50 dark:bg-gray-900 text-center  fade-in">
+            <div class="text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Your BMI:</p>
+            <p id="bmiValue" class="text-4xl font-extrabold text-gray-800 dark:text-white">--</p>
+            <p id="bmiStatus" class="text-lg mt-1 font-semibold"></p>
+            </div>
+
+            <!--Bmi Progress Bar-->
+            <div class="mt-4 relative">
+                <div class="bmi-progress"></div>
+                <div id="bmiMarker" class="bmi-marker absolute top-0" style="left:0%"></div>
+            </div>
+            <div class="flex justify-between text-xs mt-1 px-1  text-gray-500 dark:text-gray-400">
+                <span>Underweight</span>
+                <span>Normal</span>
+                <span>Overweight</span>
+                <span>Obese</span>
+            </div>
+            <!--Detailed Info-->
+            <div class="mt-4 grid grid-cols-2 gap-2 text-sm">
+                <div class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Healthy weight Range</p>
+                    <p id="healthyRange" class="font-bold text-gray-800 dark:text-white">-</p>
+                </div>
+                <div class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Est. Body Fat</p>
+                    <p id="bodyFat" class="font-bold text-gray-800 dark:text-white">-</p>
+                </div>
+            </div>
+            <!--Action Buttons -->
+            <div class="flex gap-2 mt-4"> 
+                <button id="shareBtn" class="flex-1 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600">
+                    <i class="fas fa-share-alt"></i>Share
+                </button>
+                <button id="saveHistoryBtn" class="flex-1 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600">
+                    <i class="fas fa-save"></i>Save to History
+                </button>
+            </div>
         </div>
         <!--Error M-->
         <div id="errorMsg" class="mt-4 text-red-500 text-sm text-center hidden"></div>
+
+        <!--History section -->
+        <div id="historySection" class="mt-6 pt-2 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class=" font-semibold text-gray-700 dark:text-gray-300":><i class="fas fa-history mr-1"></i>Recent History</h3>
+                <button id="clearHistoryBtn" class="text-xs px-2 py-1 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 hover:bg-red-200">Clear All </button>
+            </div>
+            <div id="historyList" class="space-y-2 max-h-48 overflow-y-auto">
+                <p class="text-sm text-center text-gray-400 dark:text-gray-500">No History</p>
+            </div>
+        </div>
     </div>
     
 </body>
